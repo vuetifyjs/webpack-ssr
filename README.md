@@ -1,6 +1,6 @@
 # vuetiful
 
-> A Vue.js project
+> Vuetify SSR Webpack Temmplate
 
 ## Build Setup
 

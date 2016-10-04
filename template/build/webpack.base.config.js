@@ -1,4 +1,6 @@
 const path = require('path')
+const webpack = require('webpack')
+const vueConfig = require('./vue-loader.config')
 
 module.exports = {
   devtool: '#source-map',
@@ -11,9 +13,6 @@ module.exports = {
     publicPath: '/dist/',
     filename: 'client-bundle.js'
   },
-  resolveLoader: {
-    root: path.join(__dirname, '../node_modules'),
-  },
   module: {
     loaders: [
       {
@@ -23,7 +22,13 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel',
-        exclude: /node_modules/
+        include: [
+          path.resolve(__dirname, '../../vuetify/src/index'),
+          path.resolve(__dirname, '../src')
+        ],
+        query: {
+          presets: [['es2015', { modules: false }], 'stage-2']
+        }
       },
       {
         test: /\.styl$/,
@@ -31,11 +36,9 @@ module.exports = {
       }
     ]
   },
-  vue: {
-    postcss: [
-      require('autoprefixer')({
-        browsers: ['last 3 versions']
-      })
-    ]
-  }
+  plugins: [
+    new webpack.LoaderOptionsPlugin({
+      vue: vueConfig
+    })
+  ]
 }

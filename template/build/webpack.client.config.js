@@ -1,8 +1,9 @@
 const base = require('./webpack.base.config')
 const webpack = require('webpack')
+const vueConfig = require('./vue-loader.config')
 
 const config = Object.assign({}, base, {
-  plugins: [
+  plugins: base.plugins.concat([
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
     }),
@@ -10,13 +11,13 @@ const config = Object.assign({}, base, {
       name: 'vendor',
       filename: 'client-vendor-bundle.js'
     })
-  ]
+  ])
 })
 
 if (process.env.NODE_ENV === 'production') {
   const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-  config.vue.loaders = {
+  vueConfig.loaders = {
     stylus: ExtractTextPlugin.extract({
       loader: "css-loader!stylus-loader",
       fallbackLoader: "vue-style-loader"
