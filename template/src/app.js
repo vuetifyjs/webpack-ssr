@@ -7,12 +7,11 @@ import { sync } from 'vuex-router-sync'
 
 sync(store, router)
 
-Vue.use(Vuetify.default)
+Vue.use(Vuetify)
 
-const app = new Vue({
-  store,
+const app = new Vue(Vue.util.extend({
   router,
-  ...App
-})
+  store
+}, App))
 
 export { app, router, store }
