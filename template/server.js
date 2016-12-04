@@ -6,6 +6,7 @@ const path = require('path')
 const express = require('express')
 const compression = require('compression')
 const serialize = require('serialize-javascript')
+const favicon = require('serve-favicon')
 const resolve = file => path.resolve(__dirname, file)
 const uglify = require('uglify-js')
 const minify = require('html-minifier').minify
@@ -60,6 +61,7 @@ const serve = (path, cache) => express.static(resolve(path), {
 })
 
 app.use(compression({ threshold: 0 }))
+app.use(favicon('./public/favicon-32x32.png'))
 app.use('/dist', serve('./dist'))
 app.use('/public', serve('./public'))
 
