@@ -19,7 +19,8 @@ const config = Object.assign({}, base, {
     }),
     // generate output HTML
     new HTMLPlugin({
-      template: 'src/index.template.html'
+      template: 'src/index.template.html',
+      inject: 'body'
     }),
     new ScriptExtHtmlWebpackPlugin({
       defaultAttribute: 'defer'
@@ -30,7 +31,7 @@ const config = Object.assign({}, base, {
 if (process.env.NODE_ENV !== 'production') {
   config.entry.critical = './src/critical.js'
 
-  module.exports = config
+  return module.exports = config
 }
 
 // Use ExtractTextPlugin to extract CSS into a single file

@@ -43,7 +43,6 @@ function createRenderer (bundle) {
 }
 
 function parseIndex (template) {
-  console.log('here')
   const appMarker = '<!-- APP -->'
   const jsMarker = '<!-- CRITICALJS -->'
 
@@ -107,6 +106,7 @@ app.get('*', (req, res) => {
 })
 
 const port = process.env.PORT || 8080
-app.listen(port, () => {
-  console.log(`server started at localhost:${port}`)
+const host = process.env.HOST || 'localhost'
+app.listen(port, host, () => {
+  console.log(`server started at ${host}:${port}`)
 })
