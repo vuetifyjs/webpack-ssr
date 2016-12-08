@@ -1,8 +1,6 @@
 const base = require('./webpack.base.config')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HTMLPlugin = require('html-webpack-plugin')
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
-const SWPrecachePlugin = require('sw-precache-webpack-plugin')
 const vueConfig = require('./vue-loader.config')
 const webpack = require('webpack')
 
@@ -20,17 +18,17 @@ const config = Object.assign({}, base, {
     // generate output HTML
     new HTMLPlugin({
       template: 'src/index.template.html',
-      inject: 'body'
+      inject: process.env.NODE_ENV !== 'production' ? 'body' : false,
+      minify: {
+        collapseWhitespace: true
+      },
+      environment: process.env.NODE_ENV
     }),
-    new ScriptExtHtmlWebpackPlugin({
-      defaultAttribute: 'defer'
-    })
+    new ExtractTextPlugin('styles.[hash].css')
   ])
 })
 
 if (process.env.NODE_ENV !== 'production') {
-  config.entry.critical = './src/critical.js'
-
   return module.exports = config
 }
 
@@ -42,23 +40,9 @@ if (process.env.NODE_ENV !== 'production') {
 // so they are extracted.
 vueConfig.loaders = {
   stylus: ExtractTextPlugin.extract({
-    loader: "css-loader!stylus-loader",
+    loader: "css-loader!stylus-loader!sass-loader",
     fallbackLoader: "vue-style-loader" // <- this is a dep of vue-loader
   })
 }
-
-config.plugins.push(
-  new ExtractTextPlugin('styles.[hash].css'),
-  // this is needed in webpack 2 for minifying CSS
-  new webpack.LoaderOptionsPlugin({
-    minimize: true
-  }),
-  // minify JS
-  new webpack.optimize.UglifyJsPlugin({
-    compress: {
-      warnings: false
-    }
-  })
-)
 
 module.exports = config

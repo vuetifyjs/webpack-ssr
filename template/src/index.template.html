@@ -12,11 +12,20 @@
   <body>
     <noscript id="deferred-styles">
       <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
+      <% if (htmlWebpackPlugin.options.environment === 'production') { %>
       <% for (key in htmlWebpackPlugin.files.css) { %>
-        <link href="<%= htmlWebpackPlugin.files.css[key] %>" rel="stylesheet">
+      <link href="<%= htmlWebpackPlugin.files.css[key] %>" rel="stylesheet">
+      <% } %>
       <% } %>
     </noscript>
     <!-- APP -->
-    <!-- CRITICALJS -->
+    <script>
+      var loadDeferredStyles=function(){var e=document.getElementById("deferred-styles"),t=document.head.getElementsByTagName("meta");t[t.length-1].insertAdjacentHTML("afterend",e.textContent),e.parentElement.removeChild(e)},raf=requestAnimationFrame||mozRequestAnimationFrame||webkitRequestAnimationFrame||msRequestAnimationFrame;raf?raf(function(){window.setTimeout(loadDeferredStyles,0)}):window.addEventListener("load",loadDeferredStyles);
+    </script>
+    <% if (htmlWebpackPlugin.options.environment === 'production') { %>
+    <% for (key in htmlWebpackPlugin.files.js) { %>
+    <script src="<%= htmlWebpackPlugin.files.js[key] %>" defer></script>
+    <% } %>
+    <% } %>
   </body>
 </html>

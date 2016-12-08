@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card class="secondary" height="200px">
+    <v-card class="secondary">
       <v-card-text>
         <img src="public/v.png">
       </v-card-text>

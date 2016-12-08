@@ -1,3 +1,6 @@
+require('./css/main.css')
+require('./stylus/main.styl')
+require('./sass/main.scss')
 require('es6-promise').polyfill()
 import { app, store } from './app'
 

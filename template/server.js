@@ -8,9 +8,6 @@ const compression = require('compression')
 const serialize = require('serialize-javascript')
 const favicon = require('serve-favicon')
 const resolve = file => path.resolve(__dirname, file)
-const uglify = require('uglify-js')
-const minify = require('html-minifier').minify
-
 
 const app = express()
 
@@ -44,14 +41,12 @@ function createRenderer (bundle) {
 
 function parseIndex (template) {
   const appMarker = '<!-- APP -->'
-  const jsMarker = '<!-- CRITICALJS -->'
 
   const i = template.indexOf(appMarker)
-  let scripts = isProd ? `<script>${uglify.minify(resolve('./src/critical.js')).code}</script>` : ''
 
   return {
     head: template.slice(0, i),
-    tail: template.slice(i + appMarker.length).replace(jsMarker, scripts)
+    tail: template.slice(i + appMarker.length)
   }
 }
 
@@ -74,7 +69,7 @@ app.get('*', (req, res) => {
   const renderStream = renderer.renderToStream(context)
 
   renderStream.once('data', () => {
-    res.write(minify(indexHTML.head, { removeAttributeQuotes: true, collapseWhitespace: true }))
+    res.write(indexHTML.head)
   })
 
   renderStream.on('data', chunk => {
