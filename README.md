@@ -1,6 +1,6 @@
 # vuetiful
 
-> Vuetify SSR Webpack Temmplate
+> Vuetify SSR Webpack Template
 
 ## Build Setup
 
