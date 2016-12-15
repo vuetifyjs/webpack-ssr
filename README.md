@@ -1,4 +1,4 @@
-# vuetiful
+# Vuetify
 
 > Vuetify SSR Webpack Template
 
