@@ -1,18 +1,23 @@
-# Vuetify
+# Vuetify Webpack SSR Template
 
 > Vuetify SSR Webpack Template
 
 ## Build Setup
 
 ``` bash
-# install dependencies
-npm install
+vue-init vuetifyjs/webpack-ssr
 
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
+cd webpack-ssr
 ```
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+``` bash
+# npm
+npm install
+```
+
+``` bash
+# yarn
+yarn
+```
+
+For additional information, please visit the [Official Documentation](https://vuetifyjs.com).
