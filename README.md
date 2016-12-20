@@ -8,14 +8,10 @@
 vue-init vuetifyjs/webpack-ssr
 
 cd webpack-ssr
-```
 
-``` bash
 # npm
 npm install
-```
 
-``` bash
 # yarn
 yarn
 ```
