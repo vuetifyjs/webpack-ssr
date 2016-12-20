@@ -10,10 +10,10 @@ module.exports = Object.assign({}, base, {
     libraryTarget: 'commonjs2'
   }),
   externals: Object.keys(require('../package.json').dependencies),
-  plugins: [
+  plugins: (base.plugins || []).concat([
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
       'process.env.VUE_ENV': '"server"'
     })
-  ]
+  ])
 })
