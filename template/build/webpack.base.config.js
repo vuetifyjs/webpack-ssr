@@ -63,7 +63,8 @@ const config = {
       }
     ]
   },
-  plugins: []
+  plugins: [],
+  performance: false
 }
 
 if (process.env.NODE_ENV !== 'production') {
