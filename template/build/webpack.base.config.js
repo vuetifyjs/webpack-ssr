@@ -21,6 +21,7 @@ const config = {
     filename: '[name].[chunkhash].js'
   },
   resolve: {
+    extensions: ['*', '.js', '.json', '.vue'],
     alias: {
       'public': path.resolve(__dirname, '../public')
     }
