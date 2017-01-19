@@ -1,8 +1,8 @@
 {
-  "name": "vuetify-webpack-ssr",
-  "description": "A Vue.js project",
-  "author": "John Leider <john.j.leider@gmail.com>",
-  "version": "0.0.2",
+  "name": "{{ name }}",
+  "description": "{{ description }}",
+  "author": "{{ author }}",
+  "version": "0.0.0",
   "scripts": {
     "dev": "node server",
     "start": "cross-env NODE_ENV=production node server",
