@@ -3,5 +3,8 @@ module.exports = {
     require('autoprefixer')({
       browsers: ['last 3 versions']
     })
-  ]
+  ],
+  buble: {
+    objectAssign: 'Object.assign',
+  },
 }
