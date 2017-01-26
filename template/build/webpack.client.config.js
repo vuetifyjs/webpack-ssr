@@ -50,7 +50,7 @@ vueConfig.loaders = {
     fallbackLoader: "vue-style-loader" // <- this is a dep of vue-loader
   }),
   sass: ExtractTextPlugin.extract({
-    loader: 'sass-loader',
+    loader: 'css-loader!sass-loader',
     fallbackLoader: "vue-style-loader" // <- this is a dep of vue-loader
   })
 }
