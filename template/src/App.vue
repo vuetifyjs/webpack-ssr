@@ -28,10 +28,6 @@
           text: 'Get Started'
         }
       }
-    },
-
-    mounted () {
-      this.$vuetify.init()
     }
   }
 </script>
