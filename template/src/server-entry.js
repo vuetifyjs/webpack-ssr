@@ -34,6 +34,14 @@ export default context => {
     // store to pick-up the server-side state without having to duplicate
     // the initial data fetching on the client.
     context.initialState = store.state
+    
+    const page = res.shift()
+
+    if (page) {
+      context.title = page.title
+      context.description = page.description
+      context.keywords = page.keywords
+    }
 
     return app
   })
