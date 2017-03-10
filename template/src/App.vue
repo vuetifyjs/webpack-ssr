@@ -1,12 +1,12 @@
 <template>
-  <v-app top-navbar>
+  <v-app top-toolbar>
     <header>
-      <v-navbar>
-        <v-navbar-logo>Vuetify</v-navbar-logo>
-        <v-navbar-items>
-          <v-navbar-item :item="item"></v-navbar-item>
-        </v-navbar-items>
-      </v-navbar>
+      <v-toolbar>
+        <v-toolbar-logo>Vuetify</v-toolbar-logo>
+        <v-toolbar-items>
+          <v-toolbar-item :item="item"></v-toolbar-item>
+        </v-toolbar-items>
+      </v-toolbar>
     </header>
 
     <main>
