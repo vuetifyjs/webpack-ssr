@@ -15,6 +15,12 @@ const config = Object.assign({}, base, {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor'
     }),
+    // extract webpack runtime and module manifest to its own file in order to
+    // prevent vendor hash from being updated whenever app bundle is updated
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'manifest',
+      chunks: ['vendor']
+    }),
     // generate output HTML
     new HTMLPlugin({
       template: 'src/index.template.html',
@@ -44,7 +50,7 @@ vueConfig.loaders = {
     fallbackLoader: "vue-style-loader" // <- this is a dep of vue-loader
   }),
   sass: ExtractTextPlugin.extract({
-    loader: 'sass-loader',
+    loader: 'css-loader!sass-loader',
     fallbackLoader: "vue-style-loader" // <- this is a dep of vue-loader
   })
 }
