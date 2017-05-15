@@ -1,29 +1,35 @@
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const path = require('path')
 const webpack = require('webpack')
 const vueConfig = require('./vue-loader.config')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
-const config = {
-  devtool: '#source-map',
-  entry: {
-    app: './src/client-entry.js',
-    vendor: [
-      'es6-promise',
-      'vue',
-      'vue-router',
-      'vuex',
-      'vuex-router-sync',
-    ]
-  },
+const isProd = process.env.NODE_ENV === 'production'
+const resolve = (file) => path.resolve(__dirname, file)
+
+module.exports = {
+  devtool: isProd
+    ? false
+    : '#cheap-module-source-map',
   output: {
-    path: path.resolve(__dirname, '../dist'),
-    publicPath: '/dist/',
+    path: resolve('../public'),
+    publicPath: '/public/',
     filename: '[name].[chunkhash].js'
   },
   resolve: {
     extensions: ['*', '.js', '.json', '.vue'],
     alias: {
-      'public': path.resolve(__dirname, '../public')
+      'assets': resolve('../assets'),
+      'components': resolve('../components'),
+      'examples': resolve('../pages/examples'),
+      'layouts': resolve('../layouts'),
+      'mixins': resolve('../mixins'),
+      'pages': resolve('../pages'),
+      'public': resolve('../public'),
+      'router': resolve('../router'),
+      'static': resolve('../static'),
+      'store': resolve('../store'),
+      'vue$': 'vue/dist/vue.common.js'
     }
   },
   module: {
@@ -36,23 +42,12 @@ const config = {
       },
       {
         test: /\.js$/,
-        loader: 'buble-loader',
-        exclude: /node_modules/,
-        options: {
-          objectAssign: 'Object.assign'
-        }
-      },
-      {
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract(['css-loader'])
+        loader: 'babel-loader',
+        exclude: /node_modules/
       },
       {
         test: /\.styl$/,
-        loader: ExtractTextPlugin.extract(['css-loader', 'stylus-loader'])
-      },
-      {
-        test: /\.scss$/,
-        loader: ExtractTextPlugin.extract(['css-loader', 'sass-loader'])
+        loader: ['style-loader', 'css-loader', 'stylus-loader']
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -64,25 +59,20 @@ const config = {
       }
     ]
   },
-  plugins: [],
-  performance: false
+  performance: {
+    maxEntrypointSize: 300000,
+    hints: isProd ? 'warning' : false
+  },
+  plugins: isProd
+    ? [
+        new webpack.optimize.UglifyJsPlugin({
+          compress: { warnings: false }
+        }),
+        new ExtractTextPlugin({
+          filename: 'common.[chunkhash].css'
+        })
+      ]
+    : [
+        new FriendlyErrorsPlugin()
+      ]
 }
-
-if (process.env.NODE_ENV !== 'production') {
-  return module.exports = config
-}
-
-config.plugins.push(
-  // this is needed in webpack 2 for minifying CSS
-  new webpack.LoaderOptionsPlugin({
-    minimize: true
-  }),
-  // minify JS
-  new webpack.optimize.UglifyJsPlugin({
-    compress: {
-      warnings: false
-    }
-  })
-)
-
-module.exports = config

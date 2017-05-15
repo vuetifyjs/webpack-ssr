@@ -1,0 +1,82 @@
+<template>
+  <v-app>
+    <v-navigation-drawer
+      persistent
+      :mini-variant="mini"
+      v-model="drawer"
+    >
+      <v-list>
+        <v-list-item
+          v-for="(item, i) in items"
+          :key="i"
+        >
+          <v-list-tile router :to="item.to">
+            <v-list-tile-action>
+              <v-icon light>{{ item.icon }}</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+    <v-toolbar>
+      <v-toolbar-side-icon @click.native.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-btn icon @click.native.stop="mini = !mini">
+        <v-icon>{{ mini ? 'chevron_right' : 'chevron_left' }}</v-icon>
+      </v-btn>
+      <v-toolbar-title v-text="title"></v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn icon @click.native.stop="right = !right">
+        <v-icon>menu</v-icon>
+      </v-btn>
+    </v-toolbar>
+    <main>
+      <v-container fluid>
+        <v-slide-y-transition mode="out-in">
+          <router-view></router-view>
+        </v-slide-y-transition>
+      </v-container>
+    </main>
+    <v-navigation-drawer temporary right v-model="right">
+      <v-list>
+        <v-list-item>
+          <v-list-tile>
+            <v-list-tile-title>Right sidebar</v-list-tile-title>
+          </v-list-tile>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+    <v-footer>
+      <span>&copy;2017</span>
+    </v-footer>
+  </v-app>
+</template>
+
+<script>
+  import Meta from 'mixins/meta'
+
+  export default {
+    mixins: [
+      Meta
+    ],
+
+    data () {
+      return {
+        drawer: true,
+        items: [
+          { icon: 'apps', title: 'Welcome', to: '/' },
+          { icon: 'bubble_chart', title: 'Inspire', to: '/inspire' }
+        ],
+        mini: false,
+        right: false,
+        title: 'Vuetify.js'
+      }
+    }
+  }
+</script>
+
+<style lang="stylus">
+  @import './stylus/main'
+</style>
