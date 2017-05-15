@@ -9,12 +9,11 @@
       "type": "string",
       "required": true,
       "label": "Project description",
-      "default": "A Vuetify.js project"
+      "default": "A Vue.js project"
     },
     "author": {
       "type": "string",
       "label": "Author"
     }
-  },
-  "completeMessage": "To get started:\n\n  cd {{destDirName}}\n  npm install #or yarn\n  npm run dev"
+  }
 }
