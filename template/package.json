@@ -1,4 +1,7 @@
 {
+  "name": "{{ name }}",
+  "author": "{{ author }}",
+  "description": "{{ description }}",
   "version": "0.0.1",
   "scripts": {
     "dev": "node server",

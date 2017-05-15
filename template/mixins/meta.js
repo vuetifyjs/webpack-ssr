@@ -1,6 +1,12 @@
 const meta = require('../router/meta.json')
 
 export default {
+  watch: {
+    '$route' () {
+      this.setMeta()
+    }
+  },
+  
   created () {
     if (process.env.VUE_ENV === 'client') return
 
