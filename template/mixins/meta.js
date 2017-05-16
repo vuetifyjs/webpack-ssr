@@ -17,6 +17,10 @@ export default {
     this.$ssrContext.keywords = metaData.keywords
   },
 
+  mounted () {
+    this.$vuetify.load(this.setMeta)
+  },
+
   methods: {
     setMeta () {
       if (typeof document === 'undefined') return
