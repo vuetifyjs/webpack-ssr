@@ -5,7 +5,7 @@
 ## Build Setup
 
 ``` bash
-vue-init vuetifyjs/webpack-ssr
+vue init vuetifyjs/webpack-ssr
 
 cd webpack-ssr
 
