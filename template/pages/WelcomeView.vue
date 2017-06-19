@@ -1,6 +1,6 @@
 <template>
-  <v-layout column align-horiz-center align-vert-center>
-    <v-col xs12 sm8 md6>
+  <v-layout column justify-center align-center>
+    <v-flex xs12 sm8 md6>
       <div class="text-xs-center">
         <img src="/static/v.png" alt="Vuetify.js" class="mb-5" />
       </div>
@@ -17,6 +17,6 @@
           <v-btn primary flat router to="/inspire">Continue</v-btn>
         </v-card-row>
       </v-card>
-    </v-col>
+    </v-flex>
   </v-layout>
 </template>

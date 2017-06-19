@@ -88,7 +88,7 @@ const microCache = LRU({
 // headers.
 const isCacheable = req => useMicroCache
 
-app.get('*', (req, res) => {
+function render (req, res) {
   const s = Date.now()
 
   res.setHeader("Content-Type", "text/html")
@@ -132,7 +132,7 @@ app.get('*', (req, res) => {
       console.log(`whole request: ${Date.now() - s}ms`)
     }
   })
-})
+}
 
 app.get('*', isProd ? render : (req, res) => {
   readyPromise.then(() => render(req, res))

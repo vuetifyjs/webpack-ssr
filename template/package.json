@@ -15,6 +15,7 @@
     "npm": ">=4.0"
   },
   "dependencies": {
+    "babel-polyfill": "^6.23.0",
     "compression": "^1.6.2",
     "cross-env": "^4.0.0",
     "es6-promise": "^4.1.0",
@@ -54,7 +55,7 @@
     "vue-loader": "^12.0.3",
     "vue-style-loader": "^3.0.0",
     "vue-template-compiler": "^2.3.2",
-    "vuetify": "^0.11.1",
+    "vuetify": "latest",
     "webpack": "^2.2.1",
     "webpack-dev-middleware": "^1.10.1",
     "webpack-hot-middleware": "^2.17.1",
