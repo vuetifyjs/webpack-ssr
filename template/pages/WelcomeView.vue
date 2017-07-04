@@ -13,9 +13,9 @@
             <em><small>&mdash; John Leider</small></em>
           </div>
         </v-card-text>
-        <v-card-row actions>
+        <v-card-actions>
           <v-btn primary flat router to="/inspire">Continue</v-btn>
-        </v-card-row>
+        </v-card-actions>
       </v-card>
     </v-flex>
   </v-layout>
