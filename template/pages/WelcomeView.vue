@@ -1,5 +1,5 @@
 <template>
-  <v-layout column align-horiz-center align-vert-center>
+  <v-layout column justify-center align-center>
     <v-flex xs12 sm8 md6>
       <div class="text-xs-center">
         <img src="/static/v.png" alt="Vuetify.js" class="mb-5" />
@@ -13,9 +13,9 @@
             <em><small>&mdash; John Leider</small></em>
           </div>
         </v-card-text>
-        <v-card-row actions>
+        <v-card-actions>
           <v-btn primary flat router to="/inspire">Continue</v-btn>
-        </v-card-row>
+        </v-card-actions>
       </v-card>
     </v-flex>
   </v-layout>
