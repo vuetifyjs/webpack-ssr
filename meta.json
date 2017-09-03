@@ -14,6 +14,11 @@
     "author": {
       "type": "string",
       "label": "Author"
+    },
+    "alacarte": {
+       "type": "confirm",
+       "message": "Use a-la-carte components?",
+       "default": false
     }
   }
 }

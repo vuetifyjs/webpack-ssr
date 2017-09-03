@@ -3,6 +3,9 @@ const webpack = require('webpack')
 const vueConfig = require('./vue-loader.config')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+{{#alacarte}}
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+{{/alacarte}}
 
 const isProd = process.env.NODE_ENV === 'production'
 const resolve = (file) => path.resolve(__dirname, file)
@@ -38,12 +41,32 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
-        options: vueConfig
+        options: vueConfig,
+        {{#alacarte}}
+        include: [
+          resolve('../assets'),
+          resolve('../components'),
+          resolve('../pages'),
+          resolve('../node_modules/vuetify')
+        ]
+        {{/alacarte}}
       },
       {
         test: /\.js$/,
         loader: 'babel-loader',
+        {{#alacarte}}
+        include: [
+          resolve('../assets'),
+          resolve('../components'),
+          resolve('../pages'),
+          resolve('../mixins'),
+          resolve('../store'),
+          resolve('../router'),
+          resolve('../node_modules/vuetify')
+        ]
+        {{else}}
         exclude: /node_modules/
+        {{/alacarte}}
       },
       {
         test: /\.styl$/,
@@ -70,7 +93,12 @@ module.exports = {
         }),
         new ExtractTextPlugin({
           filename: 'common.[chunkhash].css'
+        }),
+        {{#alacarte}}
+        new OptimizeCssAssetsPlugin({
+          assetNameRegExp: /\.css$/
         })
+        {{/alacarte}}
       ]
     : [
         new FriendlyErrorsPlugin()

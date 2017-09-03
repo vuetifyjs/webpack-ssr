@@ -1,13 +1,44 @@
 import Vue from 'vue'
-import App from './App.vue'
+{{#alacarte}}
+import {
+  Vuetify,
+  VApp,
+  VNavigationDrawer,
+  VFooter,
+  VList,
+  VBtn,
+  VIcon,
+  VGrid,
+  VToolbar,
+  transitions
+} from 'vuetify'
+{{else}}
 import Vuetify from 'vuetify'
+{{/alacarte}}
+import App from './App.vue'
 import Components from 'components/_index'
 
 import { createStore } from 'store/index'
 import { createRouter } from 'router/index'
 import { sync } from 'vuex-router-sync'
 
+{{#alacarte}}
+Vue.use(Vuetify, {
+  components: {
+    VApp,
+    VNavigationDrawer,
+    VFooter,
+    VList,
+    VBtn,
+    VIcon,
+    VGrid,
+    VToolbar,
+    transitions
+  }
+})
+{{else}}
 Vue.use(Vuetify)
+{{/alacarte}}
 
 Object.keys(Components).forEach(key => {
   Vue.component(key, Components[key])
