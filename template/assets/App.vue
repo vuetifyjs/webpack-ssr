@@ -5,6 +5,7 @@
       :mini-variant="miniVariant"
       :clipped="clipped"
       v-model="drawer"
+      app
     >
       <v-list>
         <v-list-tile 
@@ -22,7 +23,7 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar fixed>
+    <v-toolbar fixed app>
       <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
       <v-btn 
         icon
@@ -52,16 +53,19 @@
       </v-btn>
     </v-toolbar>
     <main>
-      <v-container fluid>
-        <v-slide-y-transition mode="out-in">
-          <router-view></router-view>
-        </v-slide-y-transition>
-      </v-container>
+      <v-content>
+        <v-container fluid>
+          <v-slide-y-transition mode="out-in">
+            <router-view></router-view>
+          </v-slide-y-transition>
+        </v-container>
+      </v-content>
     </main>
     <v-navigation-drawer
       temporary
       :right="right"
       v-model="rightDrawer"
+      app
     >
       <v-list>
         <v-list-tile @click.native="right = !right">
@@ -72,7 +76,7 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-footer :fixed="fixed">
+    <v-footer :fixed="fixed" app>
       <span>&copy; 2017</span>
     </v-footer>
   </v-app>
