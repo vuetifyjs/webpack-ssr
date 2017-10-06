@@ -41,36 +41,29 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
-        options: vueConfig,
-        {{#alacarte}}
-        include: [
-          resolve('../assets'),
-          resolve('../components'),
-          resolve('../pages'),
-          resolve('../node_modules/vuetify')
-        ]
-        {{/alacarte}}
+        options: vueConfig
       },
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        {{#alacarte}}
-        include: [
-          resolve('../assets'),
-          resolve('../components'),
-          resolve('../pages'),
-          resolve('../mixins'),
-          resolve('../store'),
-          resolve('../router'),
-          resolve('../node_modules/vuetify')
-        ]
-        {{else}}
         exclude: /node_modules/
-        {{/alacarte}}
       },
       {
         test: /\.styl$/,
+        {{#alacarte}}
+        {{#theme}}
+        loader: ['vue-style-loader', 'css-loader', 'stylus-loader', {
+          loader: 'vuetify-loader',
+          options: {
+            theme: resolve('../assets/stylus/theme.styl')
+          }
+        }]
+        {{else}}
+        loader: ['vue-style-loader', 'css-loader', 'stylus-loader']
+        {{/theme}}
+        {{else}}
         loader: ['style-loader', 'css-loader', 'stylus-loader']
+        {{/alacarte}}
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
