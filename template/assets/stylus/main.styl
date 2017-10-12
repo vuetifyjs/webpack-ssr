@@ -2,6 +2,10 @@
 
 // Available variables https://github.com/vuetifyjs/vuetify/blob/master/src/stylus/settings/_variables.styl
 
+{{#theme}}
+@import './theme.styl'
+{{/theme}}
+
 {{#alacarte}}
 @import '../../node_modules/vuetify/src/stylus/app'
 {{else}}
