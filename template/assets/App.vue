@@ -5,6 +5,7 @@
       :mini-variant="miniVariant"
       :clipped="clipped"
       v-model="drawer"
+      enable-resize-watcher
       app
     >
       <v-list>
@@ -23,8 +24,10 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
+    <v-toolbar fixed>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
     <v-toolbar fixed app :clipped-left="clipped">
-      <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-btn 
         icon
         @click.native.stop="miniVariant = !miniVariant"
