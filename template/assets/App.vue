@@ -26,6 +26,7 @@
     </v-navigation-drawer>
     <v-toolbar fixed>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+    </v-toolbar>
     <v-toolbar fixed app :clipped-left="clipped">
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-btn 
