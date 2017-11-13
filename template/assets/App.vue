@@ -1,11 +1,10 @@
 <template>
   <v-app dark>
     <v-navigation-drawer
-      persistent
       :mini-variant="miniVariant"
       :clipped="clipped"
       v-model="drawer"
-      enable-resize-watcher
+      fixed
       app
     >
       <v-list>
@@ -14,6 +13,7 @@
           :to="item.to"
           :key="i"
           v-for="(item, i) in items"
+          exact
         >
           <v-list-tile-action>
             <v-icon v-html="item.icon"></v-icon>
@@ -69,7 +69,7 @@
       temporary
       :right="right"
       v-model="rightDrawer"
-      app
+      fixed
     >
       <v-list>
         <v-list-tile @click.native="right = !right">
@@ -109,7 +109,3 @@
     }
   }
 </script>
-
-<style lang="stylus">
-  @import './stylus/main'
-</style>
