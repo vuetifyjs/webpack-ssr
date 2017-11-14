@@ -6,7 +6,7 @@ export default {
       this.setMeta()
     }
   },
-  
+
   created () {
     if (process.env.VUE_ENV === 'client') return
 
@@ -18,7 +18,7 @@ export default {
   },
 
   mounted () {
-    this.$vuetify.load(this.setMeta)
+    this.setMeta()
   },
 
   methods: {

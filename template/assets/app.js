@@ -12,8 +12,10 @@ import {
   VToolbar,
   transitions
 } from 'vuetify'
+import '../node_modules/vuetify/src/stylus/app.styl'
 {{else}}
 import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.css'
 {{/alacarte}}
 import App from './App.vue'
 import Components from 'components/_index'
