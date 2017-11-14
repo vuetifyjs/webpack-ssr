@@ -55,16 +55,7 @@ module.exports = {
       {
         test: /\.styl$/,
         {{#alacarte}}
-        {{#theme}}
-        loader: ['vue-style-loader', 'css-loader', 'stylus-loader', {
-          loader: 'vuetify-loader',
-          options: {
-            theme: resolve('../assets/stylus/theme.styl')
-          }
-        }]
-        {{else}}
         loader: ['vue-style-loader', 'css-loader', 'stylus-loader']
-        {{/theme}}
         {{else}}
         loader: ['style-loader', 'css-loader', 'stylus-loader']
         {{/alacarte}}
