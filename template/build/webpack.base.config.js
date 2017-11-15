@@ -50,15 +50,11 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: ['style-loader', 'css-loader']
+        loader: ['vue-style-loader', 'css-loader']
       },
       {
         test: /\.styl$/,
-        {{#alacarte}}
         loader: ['vue-style-loader', 'css-loader', 'stylus-loader']
-        {{else}}
-        loader: ['style-loader', 'css-loader', 'stylus-loader']
-        {{/alacarte}}
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
