@@ -1,25 +1,18 @@
 {
   "presets": [
-    ["env", { "modules": false }],
+    ["es2015", { "modules": false }],
     ["stage-2"]
   ],
-  {{#alacarte}}
   "plugins": [
     "transform-runtime",
-    ["transform-imports", {
-      "vuetify": {
-        "transform": "vuetify/es5/components/${member}",
-        "preventFullImport": true
-      }
-    }]
+    "transform-async-to-generator",
+    "syntax-async-functions",
+    "transform-regenerator"
   ],
-  {{else}}
-  "plugins": ["transform-runtime"],
-  {{/alacarte}}
-  "comments": false,
+  "comments": true,
   "env": {
     "test": {
-      "presets": ["env", "stage-2"],
+      "presets": ["es2015", "stage-2"],
       "plugins": ["istanbul"]
     }
   }

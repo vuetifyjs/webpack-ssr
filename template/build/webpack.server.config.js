@@ -4,10 +4,12 @@ const base = require('./webpack.base.config')
 const nodeExternals = require('webpack-node-externals')
 const VueSSRServerPlugin = require('vue-server-renderer/server-plugin')
 
+const isProd = process.env.NODE_ENV === 'production'
+
 module.exports = merge(base, {
   target: 'node',
   devtool: '#source-map',
-  entry: './assets/entry-server.js',
+  entry: './src/entry-server.js',
   output: {
     filename: 'server-bundle.js',
     libraryTarget: 'commonjs2'
@@ -16,15 +18,20 @@ module.exports = merge(base, {
   // https://github.com/liady/webpack-node-externals
   externals: nodeExternals({
     // do not externalize CSS files in case we need to import it from a dep
-    {{#alacarte}}
-    whitelist: [/\.css$/, /vuetify/]
-    {{else}}
-    whitelist: /\.css$/
-    {{/alacarte}}
+    whitelist: isProd ? /\.css$/ : [/\.css$/, 'vuetify']
   }),
+  module: {
+    rules: [
+      {
+        // TODO: maybe don't use MiniCssExtractPlugin? It really doesn't like SSR
+        // https://github.com/webpack-contrib/mini-css-extract-plugin/issues/90
+        test: /\.(css|styl(us)?)$/,
+        use: 'null-loader'
+      }
+    ]
+  },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
       'process.env.VUE_ENV': '"server"'
     }),
     new VueSSRServerPlugin()

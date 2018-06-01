@@ -19,13 +19,15 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.css'
 {{/alacarte}}
 import App from './App.vue'
-import Components from 'components/_index'
 
-import { createStore } from 'store/index'
-import { createRouter } from 'router/index'
+import { createStore } from '@/store'
+import { createRouter } from '@/router'
 import { sync } from 'vuex-router-sync'
+import upperFirst from 'lodash/upperFirst'
+import camelCase from 'lodash/camelCase'
 
 {{#alacarte}}
+
 Vue.use(Vuetify, {
   components: {
     VApp,
@@ -50,19 +52,32 @@ Vue.use(Vuetify, {
   }{{/theme}}
 })
 {{else}}
-Vue.use(Vuetify{{#theme}}, { theme: {
-  primary: '#ee44aa',
-  secondary: '#424242',
-  accent: '#82B1FF',
-  error: '#FF5252',
-  info: '#2196F3',
-  success: '#4CAF50',
-  warning: '#FFC107'
-}}{{/theme}})
+Vue.use(Vuetify{{#theme}}, {
+  theme: {
+    primary: '#ee44aa',
+    secondary: '#424242',
+    accent: '#82B1FF',
+    error: '#FF5252',
+    info: '#2196F3',
+    success: '#4CAF50',
+    warning: '#FFC107'
+  }
+}{{/theme}})
 {{/alacarte}}
 
-Object.keys(Components).forEach(key => {
-  Vue.component(key, Components[key])
+
+const requireComponent = require.context(
+  '@/components', true, /\.vue$/
+)
+
+requireComponent.keys().forEach(fileName => {
+  const componentConfig = requireComponent(fileName)
+
+  const componentName = upperFirst(
+    camelCase(fileName.replace(/^\.\//, '').replace(/\.\w+$/, ''))
+  )
+
+  Vue.component(componentName, componentConfig.default || componentConfig)
 })
 
 // Expose a factory function that creates a fresh set of store, router,

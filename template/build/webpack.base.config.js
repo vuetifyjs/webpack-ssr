@@ -1,11 +1,8 @@
+require('dotenv').config()
+
 const path = require('path')
 const webpack = require('webpack')
-const vueConfig = require('./vue-loader.config')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
-{{#alacarte}}
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-{{/alacarte}}
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const isProd = process.env.NODE_ENV === 'production'
 const resolve = (file) => path.resolve(__dirname, file)
@@ -14,25 +11,17 @@ module.exports = {
   devtool: isProd
     ? false
     : '#cheap-module-source-map',
+  mode: isProd ? 'production' : 'development',
   output: {
-    path: resolve('../public'),
+    path: resolve('../dist'),
     publicPath: '/public/',
     filename: '[name].[chunkhash].js'
   },
   resolve: {
     extensions: ['*', '.js', '.json', '.vue'],
     alias: {
-      'assets': resolve('../assets'),
-      'components': resolve('../components'),
-      'examples': resolve('../pages/examples'),
-      'layouts': resolve('../layouts'),
-      'mixins': resolve('../mixins'),
-      'pages': resolve('../pages'),
-      'public': resolve('../public'),
-      'router': resolve('../router'),
-      'static': resolve('../static'),
-      'store': resolve('../store'),
-      'vue$': 'vue/dist/vue.common.js'
+      '@': path.resolve(__dirname, '../src'),
+      'public': resolve('../public')
     }
   },
   module: {
@@ -41,7 +30,11 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
-        options: vueConfig
+        options: {
+          compilerOptions: {
+            preserveWhitespace: false
+          }
+        }
       },
       {
         test: /\.js$/,
@@ -49,15 +42,7 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.css$/,
-        loader: ['vue-style-loader', 'css-loader']
-      },
-      {
-        test: /\.styl$/,
-        loader: ['vue-style-loader', 'css-loader', 'stylus-loader']
-      },
-      {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)(\?.*)?$/,
         loader: 'url-loader',
         query: {
           limit: 10000,
@@ -70,21 +55,10 @@ module.exports = {
     maxEntrypointSize: 300000,
     hints: isProd ? 'warning' : false
   },
-  plugins: isProd
-    ? [
-        new webpack.optimize.UglifyJsPlugin({
-          compress: { warnings: false }
-        }),
-        new ExtractTextPlugin({
-          filename: 'common.[chunkhash].css'
-        }),
-        {{#alacarte}}
-        new OptimizeCssAssetsPlugin({
-          assetNameRegExp: /\.css$/
-        })
-        {{/alacarte}}
-      ]
-    : [
-        new FriendlyErrorsPlugin()
-      ]
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(process.env)
+    }),
+    new VueLoaderPlugin()
+  ]
 }

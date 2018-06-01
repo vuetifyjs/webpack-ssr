@@ -1,10 +1,8 @@
-const meta = require('../router/meta.json')
+const meta = require('@/router/meta.json')
 
 export default {
   watch: {
-    '$route' () {
-      this.setMeta()
-    }
+    $route: 'setMeta'
   },
 
   created () {

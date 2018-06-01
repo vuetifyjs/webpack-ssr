@@ -1,3 +1,3 @@
 <template>
-  <h1>Vuetify</h1>
+  <div>hi</div>
 </template>
